@@ -35,9 +35,9 @@ app.post('/upload', async (req, res) => {
     client.ftp.verbose = true;
 
     await client.access({
-        host: 'ftp.alekspartners.com',
-        user: 'dmitrii@alekspartners.com',
-        password: 'O{lN7%W[0zb%',
+        host: 'ftp.interlines.be',
+        user: 'BAGHERA2',
+        password: 'Tobir9DrodentijCyFry',
     });
 
 
