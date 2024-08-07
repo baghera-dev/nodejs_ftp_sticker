@@ -13,7 +13,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 
 app.post('/upload', async (req, res) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
     // {
     //     "orderId": ,
     //     "lineItems": [
