@@ -38,7 +38,7 @@ app.post('/upload', async (req, res) => {
         imageData: base64Data
       };
 
-      await axios.post('https://script.google.com/macros/s/AKfycbw5cu9nh-xxd2BXJY6ZxQpZnMmeXFu_c0ErpWqpMqMHg3xTSMLHTgQ2E7gBAfEVuG36fg/exec', payload)
+      await axios.post('https://script.google.com/macros/s/AKfycbyYrcU3FUItlkEh8ctPlV-Vt5c47S495Q5xY3uBoDLyvYZS70P2hYCt36n3I2dP_InkAg/exec', payload)
         .then(response => {
           console.log('Image uploaded successfully:', response.data);
         })
