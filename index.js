@@ -31,11 +31,14 @@ app.post('/upload', async (req, res) => {
 
     for (let i = 0; i < arr.length; i++) {
       const base64Data = arr[i]._sticker_image.replace(/^data:image\/\w+;base64,/, "");
+      const decodedImage = Buffer.from(base64Data, 'base64');
+      const stream = Readable.from(decodedImage);
+  
       
       const payload = {
         fileName: `order-${orderId}__sku-${arr[i]._sticker_product_sku}.jpg`,
         mimeType: 'image/jpeg',
-        imageData: base64Data
+        imageData: stream
       };
 
       await axios.post('https://script.google.com/macros/s/AKfycbw5cu9nh-xxd2BXJY6ZxQpZnMmeXFu_c0ErpWqpMqMHg3xTSMLHTgQ2E7gBAfEVuG36fg/exec', payload)
