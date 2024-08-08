@@ -25,7 +25,6 @@ app.post('/upload', async (req, res) => {
     //         }
     //     ]
     // }
-   
 
     const orderId = req.body.orderId;
     const arr = req.body.lineItems.filter(el => el._sticker_image);
@@ -41,7 +40,7 @@ app.post('/upload', async (req, res) => {
         contentType: 'image/jpeg'
       });
   
-      axios.post('https://script.google.com/d/1rRVZJWdms8S29-6j2-9PPEo5zBWFiZTbq4dc65qe6xDz9Q5IRdzxwCFJ/edit?usp=sharing', form, {
+      axios.post('https://script.google.com/macros/s/AKfycbw5cu9nh-xxd2BXJY6ZxQpZnMmeXFu_c0ErpWqpMqMHg3xTSMLHTgQ2E7gBAfEVuG36fg/exec', form, {
         headers: {
           ...form.getHeaders()
         }
@@ -55,42 +54,7 @@ app.post('/upload', async (req, res) => {
     }
 
     res.status(200).send('Images uploaded to Google Drive');
-
-
-
-
-    // const client = new ftp.Client();
-    // client.ftp.verbose = true;
-
-    // await client.access({
-    //     host: 'ftp.interlines.be',
-    //     user: 'BAGHERA2',
-    //     password: 'Tobir9DrodentijCyFry',
-    // });
-
-
-
-
-    // for(let i=0; i<arr.length; i++) {
-    //   const base64Data = arr[i]._sticker_image.replace(/^data:image\/png;base64,/, "");
-    //   const decodedImage = Buffer.from(base64Data, 'base64');
-    //   const stream = Readable.from(decodedImage);
-
-    //   const remoteDir = '/00-RECEIPT/05-ETIKETS';
-    //   await client.cd(remoteDir);
-
-
-    //   // await client.uploadFrom(decodedImage, `/00-RECEIPT/05-ETIKETS/order-${orderId}__sku-${arr[i]._sticker_product_sku}.png`);
-    //   await client.uploadFrom(stream, `order-${orderId}__sku-${arr[i]._sticker_product_sku}.jpg`);
-    // }
-
-    // await client.close();
-
-    // res.status(200).send('Images uploaded to FTP server');
-    
   } catch (err) {
-    // console.error(err);
-    // res.status(500).send('Error uploading image to FTP server');
     console.error(err);
     res.status(500).send('Error uploading image to Google Drive');
   }
