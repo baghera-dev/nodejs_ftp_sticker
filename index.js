@@ -39,6 +39,9 @@ app.post('/upload', async (req, res) => {
         filename: `order-${orderId}__sku-${arr[i]._sticker_product_sku}.jpg`,
         contentType: 'image/jpeg'
       });
+
+      console.log('FORM:', form);
+      console.log('FORM HEADERS:', {...form.getHeaders()});
   
       axios.post('https://script.google.com/macros/s/AKfycbw5cu9nh-xxd2BXJY6ZxQpZnMmeXFu_c0ErpWqpMqMHg3xTSMLHTgQ2E7gBAfEVuG36fg/exec', form, {
         headers: {
