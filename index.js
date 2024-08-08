@@ -30,30 +30,21 @@ app.post('/upload', async (req, res) => {
     const arr = req.body.lineItems.filter(el => el._sticker_image);
 
     for (let i = 0; i < arr.length; i++) {
-      const base64Data = arr[i]._sticker_image.replace(/^data:image\/png;base64,/, "");
-      const decodedImage = Buffer.from(base64Data, 'base64');
-      const stream = Readable.from(decodedImage);
-  
-      const form = new FormData();
-      form.append('file', stream, {
-        filename: `order-${orderId}__sku-${arr[i]._sticker_product_sku}.jpg`,
-        contentType: 'image/jpeg'
-      });
+      const base64Data = arr[i]._sticker_image.replace(/^data:image\/\w+;base64,/, "");
+      
+      const payload = {
+        fileName: `order-${orderId}__sku-${arr[i]._sticker_product_sku}.jpg`,
+        mimeType: 'image/jpeg',
+        imageData: base64Data
+      };
 
-      console.log('FORM:', form);
-      console.log('FORM HEADERS:', {...form.getHeaders()});
-  
-      axios.post('https://script.google.com/macros/s/AKfycbw5cu9nh-xxd2BXJY6ZxQpZnMmeXFu_c0ErpWqpMqMHg3xTSMLHTgQ2E7gBAfEVuG36fg/exec', form, {
-        headers: {
-          ...form.getHeaders()
-        }
-      })
-      .then(response => {
-        console.log('Image uploaded successfully:', response.data);
-      })
-      .catch(error => {
-        console.error('Error uploading image:', error);
-      });
+      await axios.post('https://script.google.com/macros/s/AKfycbw5cu9nh-xxd2BXJY6ZxQpZnMmeXFu_c0ErpWqpMqMHg3xTSMLHTgQ2E7gBAfEVuG36fg/exec', payload)
+        .then(response => {
+          console.log('Image uploaded successfully:', response.data);
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+        });
     }
 
     res.status(200).send('Images uploaded to Google Drive');
